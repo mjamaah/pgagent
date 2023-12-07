@@ -1,0 +1,21 @@
+name: Continuous Integration
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  push-to-docker:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v4
+    - uses: elgohr/Publish-Docker-Github-Action@v5
+      name: Publish to Docker
+      with:
+        name: mjamaah/pgagent
+        username: ${{ secrets.docker_username }}
+        password: ${{ secrets.docker_password }}
+        tags: latest
+        cache: true
